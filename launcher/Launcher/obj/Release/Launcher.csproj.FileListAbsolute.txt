@@ -1,0 +1,9 @@
+C:\Users\Stephen\source\repos\Launcher\Launcher\bin\Release\Launcher.exe.config
+C:\Users\Stephen\source\repos\Launcher\Launcher\bin\Release\Launcher.exe
+C:\Users\Stephen\source\repos\Launcher\Launcher\bin\Release\Launcher.pdb
+C:\Users\Stephen\source\repos\Launcher\Launcher\obj\Release\Launcher.csproj.AssemblyReference.cache
+C:\Users\Stephen\source\repos\Launcher\Launcher\obj\Release\Launcher.Properties.Resources.resources
+C:\Users\Stephen\source\repos\Launcher\Launcher\obj\Release\Launcher.csproj.GenerateResource.cache
+C:\Users\Stephen\source\repos\Launcher\Launcher\obj\Release\Launcher.csproj.CoreCompileInputs.cache
+C:\Users\Stephen\source\repos\Launcher\Launcher\obj\Release\Launcher.exe
+C:\Users\Stephen\source\repos\Launcher\Launcher\obj\Release\Launcher.pdb
