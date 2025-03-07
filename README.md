@@ -6,7 +6,7 @@ This repo contains a Windows-based installer and launcher for the hacktv-gui app
 The installer is available <a href="https://github.com/steeviebops/hacktv-gui-installer/releases/latest/download/hacktv-gui_setup.exe">here</a>, or on the Releases page. It requires an active internet connection.
 
 ## Portable installation
-If you don't want the installer to create Start menu shortcuts, file associations or uninstall data, select the **Do not create shortcuts (Portable installation)** option when promted to choose a Start menu folder. You should also change the install location to a folder of your choice.
+If you don't want the installer to create Start menu shortcuts, file associations and uninstall data, select the **Do not create shortcuts (Portable installation)** option when prompted to choose a Start menu folder. You should also change the install location to a folder of your choice.
 
 ## How it works
 The installer includes a small launcher executable, which runs the Java Runtime Environment (JRE) with the correct parameters. It will also create Start menu shortcuts and associate the .htv file type with the launcher.
