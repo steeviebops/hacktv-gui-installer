@@ -81,7 +81,7 @@ Section "!Required files" MAIN
         WriteRegStr HKCU "${UNINSTALL_PATH}" "QuietUninstallString" "$\"$INSTDIR\uninstall.exe$\" /S"
         WriteRegStr HKCU "${UNINSTALL_PATH}" "DisplayIcon" "$\"$INSTDIR\launcher.exe$\""
         WriteRegStr HKCU "${UNINSTALL_PATH}" "Publisher" "Stephen McGarry"
-        WriteRegStr HKCU "${UNINSTALL_PATH}" "UrlUpdateInfo" "https://github.com/stteviebops/hacktv-gui"
+        WriteRegStr HKCU "${UNINSTALL_PATH}" "UrlUpdateInfo" "https://github.com/steeviebops/hacktv-gui"
         # File associations
         !define ASSOC_EXT ".htv"
         !define ASSOC_PROGID "hacktv-gui"
