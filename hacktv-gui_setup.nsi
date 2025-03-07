@@ -11,11 +11,11 @@ RequestExecutionLevel user
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "license.txt"
-!insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
 var StartMenuFolder
 !define MUI_INNERTEXT_STARTMENU_CHECKBOX "Do not create shortcuts (Portable installation)"
 !insertmacro MUI_PAGE_STARTMENU $(^Name) $StartMenuFolder
+!insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
 #!define MUI_FINISHPAGE_NOAUTOCLOSE
 !insertmacro MUI_PAGE_FINISH
