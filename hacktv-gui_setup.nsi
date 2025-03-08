@@ -24,12 +24,12 @@ var StartMenuFolder
 ;--------------------------------
 ;Version Information
 
-  VIProductVersion  "1.0.0.0"
+  VIProductVersion  "1.1.0.0"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "hacktv-gui"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "GUI wrapper for hacktv"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (C) 2025 Stephen McGarry (https://github.com/steeviebops)"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "hacktv-gui installer"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "1.0.0.0"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "1.1.0.0"
 
 ;--------------------------------
 
@@ -49,20 +49,11 @@ Section "!Required files" MAIN
     # windows-kill
     DetailPrint "Downloading https://github.com/ElyDotDev/windows-kill/releases/download/1.1.4/windows-kill_1.1.4_release.zip..."
     inetc::get /caption "windows-kill application" "https://github.com/ElyDotDev/windows-kill/releases/download/1.1.4/windows-kill_1.1.4_release.zip" "$TEMP\windows-kill_1.1.4_release.zip" /end
-    Pop $0
+    Pop $1
     DetailPrint "Extract: windows-kill.exe"
     nsUnzip::Extract /j "$TEMP\windows-kill_1.1.4_release.zip" "windows-kill_x64_1.1.4_lib_release\windows-kill.exe" /end
-    Pop $1
-    Delete "$TEMP\windows-kill_1.1.4_release.zip"
-
-    # hacktv (fsphil)
-    DetailPrint "Downloading https://download.bops.ie/hacktv/fsphil.zip..."
-    inetc::get /caption "hacktv" "https://download.bops.ie/hacktv/fsphil.zip" "$TEMP\fsphil.zip"
     Pop $2
-    DetailPrint "Extract: hacktv.exe"
-    nsUnzip::Extract "$TEMP\fsphil.zip" /end
-    Delete "$TEMP\fsphil.zip"
-    Delete "readme.txt"
+    Delete "$TEMP\windows-kill_1.1.4_release.zip"
 
     # Create Start menu shortcuts if enabled
     !insertmacro MUI_STARTMENU_WRITE_BEGIN $(^Name)
@@ -100,32 +91,47 @@ Section "!Required files" MAIN
 SectionEnd
 
 Section "Java Runtime Environment" JRE
+    !define JAVA_CAPTION "Eclipse Temurin OpenJDK JRE 17.0.14+7"
+    !define JAVA_URL "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.14+7/OpenJDK17U-jre_x64_windows_hotspot_17.0.14_7.zip"
+    !define JAVA_ZIP "OpenJDK17U-jre_x64_windows_hotspot_17.0.14_7.zip"
+    !define JAVA_TMPDIR "jdk-17.0.14+7-jre"
     SetOutPath $INSTDIR
     ${If} ${FileExists} `$INSTDIR\jre\*.*`
         RMDir /r $INSTDIR\jre
     ${EndIf}
-    DetailPrint "Downloading https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.26+4/OpenJDK11U-jre_x64_windows_hotspot_11.0.26_4.zip..."
-    inetc::get /caption "Eclipse Temurin OpenJDK JRE 11.0.26+4" "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.26+4/OpenJDK11U-jre_x64_windows_hotspot_11.0.26_4.zip" "$TEMP\OpenJDK11U-jre_x64_windows_hotspot_11.0.26_4.zip" /end
+    DetailPrint "Downloading ${JAVA_CAPTION}..."
+    inetc::get /caption "${JAVA_CAPTION}" "${JAVA_URL}" "$TEMP\${JAVA_ZIP}" /end
     Pop $3
-    DetailPrint "Extracting: OpenJDK11U-jre_x64_windows_hotspot_11.0.26_4.zip..."
-    nsUnzip::Extract "$TEMP\OpenJDK11U-jre_x64_windows_hotspot_11.0.26_4.zip" /end
+    DetailPrint "Extracting: ${JAVA_ZIP}..."
+    nsUnzip::Extract "$TEMP\${JAVA_ZIP}" /end
     Pop $4
-    Rename "jdk-11.0.26+4-jre" "jre"
-    Delete "$TEMP\OpenJDK11U-jre_x64_windows_hotspot_11.0.26_4.zip"
+    Rename ${JAVA_TMPDIR} "jre"
+    Delete "$TEMP\${JAVA_ZIP}"
+SectionEnd
+
+Section "hacktv" HACKTV
+    SetOutPath "$INSTDIR\bin"
+    DetailPrint "Downloading https://download.bops.ie/hacktv/fsphil.zip..."
+    inetc::get /caption "hacktv" "https://download.bops.ie/hacktv/fsphil.zip" "$TEMP\fsphil.zip" /end
+    Pop $5
+    DetailPrint "Extract: hacktv.exe"
+    nsUnzip::Extract "$TEMP\fsphil.zip" /end
+    Delete "$TEMP\fsphil.zip"
+    Delete "readme.txt"
 SectionEnd
 
 Section "FlatLaf" FLATLAF
     SetOutPath "$INSTDIR\bin"
     DetailPrint "Downloading https://repo1.maven.org/maven2/com/formdev/flatlaf/3.0/flatlaf-3.0.jar..."
     inetc::get /caption "FlatLaf" "https://repo1.maven.org/maven2/com/formdev/flatlaf/3.0/flatlaf-3.0.jar" "$INSTDIR\bin\flatlaf-3.0.jar" /end
-    Pop $5
+    Pop $6
 SectionEnd
 
 Section /o "yt-dlp" YT_DLP
     SetOutPath "$INSTDIR\bin"
     DetailPrint "Downloading https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe"
     inetc::get /caption "yt-dlp" "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe" "$INSTDIR\bin\yt-dlp.exe" /end
-    Pop $6
+    Pop $7
 SectionEnd
 
 Section ""
@@ -192,19 +198,22 @@ Function .onInit
     ${EndIf}
 
     # Set estimated disk space requirements for each section
-    SectionSetSize ${MAIN} 25600
-    SectionSetSize ${JRE} 122880
+    SectionSetSize ${MAIN} 320
+    SectionSetSize ${HACKTV} 24576
+    SectionSetSize ${JRE} 128000
     SectionSetSize ${FLATLAF} 765
     SectionSetSize ${YT_DLP} 20480
 FunctionEnd
 
 # Set section descriptions
-LangString DESC_MAIN ${LANG_ENGLISH} "Installs hacktv-gui and supporting files. Also installs fsphil's build of hacktv; this can be changed later."
-LangString DESC_JRE ${LANG_ENGLISH} "Installs a dedicated copy of the Java Runtime Environment (Eclipse Temurin OpenJDK 11). If you already have a version 11 or later JRE or JDK installed, you can deselect this option."
+LangString DESC_MAIN ${LANG_ENGLISH} "Installs hacktv-gui and supporting files."
+LangString DESC_HACKTV ${LANG_ENGLISH} "Installs the latest build of hacktv. The fork can be changed in hacktv-gui after installation is complete."
+LangString DESC_JRE ${LANG_ENGLISH} "Installs a dedicated copy of the Java Runtime Environment (Eclipse Temurin OpenJDK 17). If you already have a version 11 or later JRE or JDK installed, you can deselect this option."
 LangString DESC_FLATLAF ${LANG_ENGLISH} "Installs the FlatLaf library, for dark mode and modern UI skins."
 LangString DESC_YT_DLP ${LANG_ENGLISH} "Installs yt-dlp, a YouTube downloader. Used for streaming videos from online video sites."
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${MAIN} $(DESC_MAIN)
+    !insertmacro MUI_DESCRIPTION_TEXT ${HACKTV} $(DESC_HACKTV)
     !insertmacro MUI_DESCRIPTION_TEXT ${JRE} $(DESC_JRE)
     !insertmacro MUI_DESCRIPTION_TEXT ${FLATLAF} $(DESC_FLATLAF)
     !insertmacro MUI_DESCRIPTION_TEXT ${YT_DLP} $(DESC_YT_DLP)
