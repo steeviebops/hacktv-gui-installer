@@ -20,10 +20,10 @@ The following components are downloaded during installation:
 **Java Runtime Environment**\
 Eclipse Temurin OpenJDK JRE 17 (from its GitHub repo). If you already have a JDK or JRE installed (11 or later), you can deselect this during installation.
 
-**hacktv**
+**hacktv**\
 fsphil's build of hacktv (from my build server, updated within two hours of a new commit). If you want to change this to another fork, you can do so on the GUI Settings tab in hacktv-gui after the installation is complete.
 
-**FlatLaf** \
+**FlatLaf**\
 Version 3.0 from its Maven repo. This is an optional component which adds modern UI skins and dark mode.
 
 **yt-dlp**\
