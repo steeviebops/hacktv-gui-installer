@@ -24,12 +24,16 @@ var StartMenuFolder
 ;--------------------------------
 ;Version Information
 
-  VIProductVersion  "1.1.0.0"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "hacktv-gui"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "GUI wrapper for hacktv"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (C) 2025 Stephen McGarry (https://github.com/steeviebops)"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "hacktv-gui installer"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "1.1.0.0"
+!define VERSION "1.2.0.0"
+VIProductVersion ${VERSION}
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "hacktv-gui"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "GUI wrapper for hacktv"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (C) 2025 Stephen McGarry (https://github.com/steeviebops)"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "hacktv-gui installer"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" ${VERSION}
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" ${VERSION}
+VIAddVersionKey /LANG=${LANG_ENGLISH} "InternalName" "setup"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "OriginalFilename" "hacktv-gui_setup.exe"
 
 ;--------------------------------
 
@@ -122,9 +126,13 @@ SectionEnd
 
 Section "FlatLaf" FLATLAF
     SetOutPath "$INSTDIR\bin"
-    DetailPrint "Downloading https://repo1.maven.org/maven2/com/formdev/flatlaf/3.0/flatlaf-3.0.jar..."
-    inetc::get /caption "FlatLaf" "https://repo1.maven.org/maven2/com/formdev/flatlaf/3.0/flatlaf-3.0.jar" "$INSTDIR\bin\flatlaf-3.0.jar" /end
+    DetailPrint "Downloading FlatLaf 3.5.4..."
+    inetc::get /caption "FlatLaf" "https://repo1.maven.org/maven2/com/formdev/flatlaf/3.5.4/flatlaf-3.5.4.jar" "$INSTDIR\bin\flatlaf-3.5.4.jar" "https://repo1.maven.org/maven2/com/formdev/flatlaf-intellij-themes/3.5.4/flatlaf-intellij-themes-3.5.4.jar" "$INSTDIR\bin\flatlaf-intellij-themes-3.5.4.jar" /end
     Pop $6
+    # Delete the old version of FlatLaf if it exists...
+    ${If} ${FileExists} `$INSTDIR\bin\flatlaf-3.0.jar`
+        Delete "$INSTDIR\bin\flatlaf-3.0.jar"
+    ${EndIf}
 SectionEnd
 
 Section /o "yt-dlp" YT_DLP
@@ -201,7 +209,7 @@ Function .onInit
     SectionSetSize ${MAIN} 320
     SectionSetSize ${HACKTV} 24576
     SectionSetSize ${JRE} 128000
-    SectionSetSize ${FLATLAF} 765
+    SectionSetSize ${FLATLAF} 1170
     SectionSetSize ${YT_DLP} 20480
 FunctionEnd
 
