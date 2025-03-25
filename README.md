@@ -18,13 +18,13 @@ The following components are downloaded during installation:
 - windows-kill (from its GitHub repo). This is not strictly essential but improves performance on some systems.
 
 **Java Runtime Environment**\
-Eclipse Temurin OpenJDK JRE 17 (from its GitHub repo). If you already have a JDK or JRE installed (11 or later), you can deselect this during installation.
+Eclipse Temurin OpenJDK JRE 17 (from its GitHub repo). If you already have a JDK or JRE installed (11 or later), you can deselect this option.
 
 **hacktv**\
 fsphil's build of hacktv (from my build server, updated within two hours of a new commit). If you want to change this to another fork, you can do so on the GUI Settings tab in hacktv-gui after the installation is complete.
 
 **FlatLaf**\
-Version 3.0 from its Maven repo. This is an optional component which adds modern UI skins and dark mode.
+Version 3.5.4 from its Maven repo. This is an optional component which adds modern UI skins and dark mode. Also includes the IntelliJ theme pack.
 
 **yt-dlp**\
 Latest version from its GitHub repo. This is an optional component which allows for streaming of YouTube content and other online video sites.
