@@ -24,7 +24,7 @@ var StartMenuFolder
 ;--------------------------------
 ;Version Information
 
-!define VERSION "1.3.0.0"
+!define VERSION "2.0.0.0"
 VIProductVersion ${VERSION}
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "hacktv-gui"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "GUI wrapper for hacktv"
@@ -95,10 +95,10 @@ Section "!Required files" MAIN
 SectionEnd
 
 Section "Java Runtime Environment" JRE
-    !define JAVA_CAPTION "Eclipse Temurin OpenJDK JRE 17.0.14+7"
-    !define JAVA_URL "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.14+7/OpenJDK17U-jre_x64_windows_hotspot_17.0.14_7.zip"
-    !define JAVA_ZIP "OpenJDK17U-jre_x64_windows_hotspot_17.0.14_7.zip"
-    !define JAVA_TMPDIR "jdk-17.0.14+7-jre"
+    !define JAVA_CAPTION "Eclipse Temurin OpenJDK JRE 17.0.16+8"
+    !define JAVA_URL "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.16+8/OpenJDK17U-jre_x64_windows_hotspot_17.0.16_8.zip"
+    !define JAVA_ZIP "OpenJDK17U-jre_x64_windows_hotspot_17.0.16_8.zip"
+    !define JAVA_TMPDIR "jdk-17.0.16+8-jre"
     SetOutPath $INSTDIR
     ${If} ${FileExists} `$INSTDIR\jre\*.*`
         RMDir /r $INSTDIR\jre

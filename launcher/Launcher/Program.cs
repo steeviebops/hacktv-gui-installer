@@ -201,7 +201,7 @@ namespace Launcher
             // If FlatLaf exists, execute JRE with -cp (classpath) instead of -jar
             if (!string.IsNullOrEmpty(flatLafClassPath))
             {
-                String a = "-cp " + jarFileName + ";" + flatLafClassPath + " com.steeviebops.hacktvgui.GUI" + cmdArgs;
+                String a = "-cp " + jarFileName + ";" + flatLafClassPath + " ie.bops.hacktvgui.GUI" + cmdArgs;
                 try
                 {
                     run.StartInfo.UseShellExecute = true;
