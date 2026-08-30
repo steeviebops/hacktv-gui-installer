@@ -1,3 +1,5 @@
+**This repo is no longer maintained. You can now find Windows installers the release section of the main repo, at https://github.com/steeviebops/hacktv-gui/releases.**
+
 # hacktv-gui-installer
 Installer and launcher for hacktv-gui on Windows.
 
